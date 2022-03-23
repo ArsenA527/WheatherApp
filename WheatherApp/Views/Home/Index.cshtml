@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WheatherApp.Models.Weather>
+@{
+    ViewData["Title"] = "Главная";
+}
+<div class="text-center">
+  <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+
+<ol>
+  <li>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Watch" asp-action="">
+      Просмотр погоды
+    </a>
+  </li>
+  <li>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Import" asp-action="">
+      Загрузить архивы
+    </a>
+  </li>
+</ol>

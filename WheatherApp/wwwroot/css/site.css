@@ -1,0 +1,67 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.title--margin {
+    margin-bottom: 40px
+}
+
+table {
+    border: 0;
+    width: 100%;
+    max-width: 900px;
+}
+
+table thead {
+    background-color: #ebebeb;
+    color: #148bc3;
+}
+
+table th {
+    padding: 20px;
+    font-size: 1.2rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table tr:hover {
+    background-color: #e8f3f9;
+}
+
+table td {
+    border-bottom: 1px solid #000;
+    padding: 10px;
+    font-size: 1.1rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.form {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.form label {
+    margin-right: .4rem;
+}
+
+.form-control {
+    width: 20%;
+    margin-right: 1.2rem;
+}

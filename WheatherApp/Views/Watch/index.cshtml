@@ -1,0 +1,73 @@
+﻿@{
+  ViewData["Title"] = "Просмотр погоды";
+}
+
+<h2 class="title--margin">@ViewData["Title"]</h2>
+
+<form method="get">
+    <div class="form">
+        <label>Год: </label>
+        <select name="year" asp-items="Model.FilterYearViewModel.Years" class="form-control"></select>
+
+        <label>Месяц: </label>
+        <select name="month" asp-items="Model.FilterMonthViewModel.Months" class="form-control"></select> 
+ 
+        <input type="submit" value="Фильтр" class="btn btn-outline-dark" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Время</th>
+            <th>Температура, гр. Ц.</th>
+            <th>Отн. влажность воздуха, %</th>
+            <th>Точка росы, гр. Ц.</th>
+            <th>Атм. давление, мм. рт. ст.</th>
+            <th>Направление ветра</th>
+            <th>Скорость ветра, м/с</th>
+            <th>Облачность, %</th>
+            <th>h, м.</th>
+            <th>VV, км.</th>
+            <th>Погодные явления</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Weather weather in Model.Weathers)
+        {
+        <tr>
+            <td>@weather.Date.Day:@weather.Date.Month.StrMonth:@weather.Date.Year.StrYear</td>
+            <td>@weather.Time</td>
+            <td>@weather.Temperature</td>
+            <td>@weather.RelativeHumidity</td>
+            <td>@weather.DewPoint</td>
+            <td>@weather.AtmospherPressure</td>
+            <td>@weather.WindDirection</td>
+            <td>@weather.WindSpeed</td>
+            <td>@weather.Cloudiness</td>
+            <td>@weather.CloudBase</td>
+            <td>@weather.HorizontalVisibility</td>
+            <td>@weather.WeatherConditions</td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Вперед
+    </a>
+}

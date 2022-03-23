@@ -1,0 +1,63 @@
+﻿@{
+  ViewData["Title"] = "Загрузка данных";
+}
+
+<h2 class="title--margin">@ViewData["Title"]</h2>
+
+<div>
+    <form method="post" asp-area="" asp-controller="Watch" asp-action="AddFile" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileExcel" />
+        <input id="btnUpload" type="submit" value="Загрузить файл" />
+    </form>
+
+</div>
+
+<div id="message"></div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script><!--подключение jquery-->
+<script type="text/javascript">
+    $(function () {
+       $('#btnUpload').on('click', function () {
+           let fileExtension = ['xls', 'xlsx'];
+           let filename = $('#fileExcel').val();
+           // Проверка: выбран ли файл
+           if (filename.length == 0) {
+               alert("Выберите файл");
+               return false;
+           } else {
+               let extension = filename.replace(/^.*\./, '');
+               if ($.inArray(extension, fileExtension) == -1) {
+                   alert("Выберите Excel файл");
+                   return false;
+               }
+           }
+           let fdata = new FormData();
+           let fileUpload = $("#fileExcel").get(0);
+           let files = fileUpload.files;
+           fdata.append(files[0].filename, files[0]);
+           $.ajax({
+               type: "POST",
+               url: "Watch/Index",
+               beforeSend: function(xhr) {
+                   xhr.setRequestHeader("XSRF-TOKEN"),
+                        $('input:hidden[name="__RequestVerificationToken"]').val();
+               },
+               data: fdata,
+               contentType: false,
+               processData: false,
+               success: function (response) {
+                    if (response.length == 0) {
+                        alert('Произошла какая-то ошибка при загрузке');
+                    }
+                    else {
+                        $('#message').html(response);
+                    }
+                },
+                error: function (e) {
+                    $('#message').html(e.responseText);
+                }
+           })
+       }); 
+    })
+</script>
